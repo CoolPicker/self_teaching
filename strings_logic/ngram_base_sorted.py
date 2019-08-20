@@ -13,7 +13,7 @@
 import operator
 
 word_arr = []
-with open('G:\\ngram_lexer\\sogou_input\\res.txt', 'r', encoding='utf-8') as f:
+with open('G:\\ngram_lexer\\sogou_input\\v2_clean_last.txt', 'r', encoding='utf-8') as f:
     for item in f:
         item_arr = item.strip().split('\t')
         word = item_arr[0].strip()
@@ -34,7 +34,7 @@ with open('G:\\ngram_lexer\\sogou_input\\res.txt', 'r', encoding='utf-8') as f:
 word_arr.sort(key=operator.itemgetter(3))
 
 
-with open('G:\\ngram_lexer\\sogou_input\\res_sorted.txt', 'w', encoding='utf-8') as w:
+with open('G:\\ngram_lexer\\sogou_input\\v2_clean_sorted.txt', 'w', encoding='utf-8') as w:
     i = 1
     for item in word_arr:
         i = i + 1

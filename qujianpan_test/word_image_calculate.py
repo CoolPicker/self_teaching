@@ -27,14 +27,17 @@ def word_check_file(filename, filepath):
     return str(r.content, encoding='utf-8')
 
 
-path = 'G:\\word_ocr\\26_five\\'
-with open('G:\\word_ocr\\26_five_res.txt', 'w', encoding='utf-8') as w:
+path = 'G:\\qujianpan\\9-1\\'
+with open('G:\\qujianpan\\9-1.txt', 'w', encoding='utf-8') as w:
     for item in os.listdir(path):
         file_name = item.strip()
+        names = file_name.split('.')
+        pins = names[0]
         res = word_check_file(file_name, path + file_name)
         resp = json.loads(res)
         data = resp['data']
-        each = item + '\t' + data
+        data = ' '.join(data.split(' ')[:3])
+        each = pins + '\t' + data
         print(each)
         w.write(each)
         w.write('\n')

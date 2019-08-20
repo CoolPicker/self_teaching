@@ -1,6 +1,25 @@
+#!/usr/bin/env python
+# encoding: utf-8
+"""
+@author: Peter Wick
+@license: (C) Copyright 2018-2020, Rosetta Lab Limited.
+@contact: niuya312@gmail.com
+@file: scel2txt.py
+@time: 2019-8-12 17:40
+@desc:
+"""
 import struct
 import os
 
+# 由于原代码不适用python3且有大量bug
+# 以及有函数没有必要使用且一些代码书写不太规范或冗余
+# 所以本人在原有的大框架基本不动的情况下作了大量的细节更改。
+# 使得没有乱码出现，文件夹导入更方便等等。
+# Author：Ling Yue, Taiyuan U of Tech
+# Blog: http://blog.yueling.me
+
+
+# 原作者：
 # 搜狗的scel词库就是保存的文本的unicode编码，每两个字节一个字符（中文汉字或者英文字母）
 # 找出其每部分的偏移位置即可
 # 主要两部分
@@ -37,6 +56,7 @@ GPy_Table = {}
 # 元组(词频,拼音,中文词组)的列表
 GTable = []
 
+
 # 原始字节码转为字符串
 def byte2str(data):
     pos = 0
@@ -47,6 +67,7 @@ def byte2str(data):
             str += c
         pos += 2
     return str
+
 
 # 获取拼音表
 def getPyTable(data):
@@ -62,15 +83,19 @@ def getPyTable(data):
         GPy_Table[index] = py
         pos += lenPy
 
+
 # 获取一个词组的拼音
 def getWordPy(data):
     pos = 0
     ret = ''
+    now_arr = []
     while pos < len(data):
         index = struct.unpack('H', bytes([data[pos], data[pos + 1]]))[0]
         ret += GPy_Table[index]
+        now_arr.append(GPy_Table[index])
         pos += 2
-    return ret
+    return ' '.join(now_arr)
+
 
 # 读取中文表
 def getChinese(data):
@@ -122,18 +147,24 @@ def scel2txt(file_name):
     getPyTable(data[startPy:startChinese])
     getChinese(data[startChinese:])
 
+
 if __name__ == '__main__':
 
     # scel所在文件夹路径
-    in_path = "E:\python_workspace"
+    in_path = "G:\\lexicon\\"
     # 输出词典所在文件夹路径
-    out_path = "coal_dict.txt"
+    out_path = "location_coal_dict.txt"
 
     fin = [fname for fname in os.listdir(in_path) if fname[-5:] == ".scel"]
     for f in fin:
         f = os.path.join(in_path, f)
         scel2txt(f)
 
+    print(len(GTable))
     # 保存结果
-    with open(out_path, 'w', encoding='utf8') as f:
-        f.writelines([word+'\n' for count, py, word in GTable])
+    with open(in_path + out_path, 'w', encoding='utf8') as f:
+        # f.writelines([word+'\n' for count, py, word in GTable])
+        for count, py, word in GTable:
+            f.write(word + '\t' + py + '\t' + '0')
+            f.write('\n')
+            f.flush()

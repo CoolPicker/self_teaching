@@ -30,7 +30,7 @@ def get_file_last_line(inputfile):
         return last_line
 
 
-operate_file = 'G:\\ngram_lexer\\sogou_input\\' + '501-720.txt'
+operate_file = 'G:\\ngram_lexer\\sogou_input\\aa\\' + '1551-1650.txt'
 last_line = get_file_last_line(operate_file).decode('utf-8')
 res_dict = {}
 arr_each = []

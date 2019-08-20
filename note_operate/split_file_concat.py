@@ -9,10 +9,10 @@
 @desc:
 """
 total_arr = []
-for i in range(101):
+for i in range(1501, 2506):
     if i > 0:
         kk = 1
-        filename = str(i + 300) + '.txt'
+        filename = str(i) + '.txt'
         req_arr = []
         with open('G:\\ngram_lexer\\sogou_input\\single-req\\' + filename, 'r', encoding='utf-8') as fr:
             for item in fr:
@@ -31,7 +31,7 @@ for i in range(101):
 
 
 print(len(total_arr))
-with open('G:\\ngram_lexer\\sogou_input\\single_res_10w_301_400.txt', 'w', encoding='utf-8') as w:
+with open('G:\\ngram_lexer\\sogou_input\\single_res_1501_2505.txt', 'w', encoding='utf-8') as w:
     for item in total_arr:
         w.write(item.strip())
         w.write('\n')

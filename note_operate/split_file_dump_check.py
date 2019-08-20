@@ -11,7 +11,7 @@
 
 from pypinyin import lazy_pinyin
 
-for i in range(401, 721):
+for i in range(1501, 2506):
     if i > 0:
         kk = 1
         filename = str(i) + '.txt'
@@ -55,4 +55,8 @@ for i in range(401, 721):
             ee = ee + 1
         if hei_count == 5:
             print(filename + ' --- ' + str(now - 1))
+        elif hei_count < 5 and len(res_arr) < len(req_arr):
+            print(filename + ' --- ' + str(1000))
+        else:
+            continue
 
