@@ -62,40 +62,46 @@ def word_check_file(filename, filepath):
     return str(r.content, encoding='utf-8')
 
 
-path = 'G:\\qujianpan\\9-3\\'
-with open('G:\\qujianpan\\9-3.txt', 'w', encoding='utf-8') as w:
+path = 'G:\\qujianpan\\9-5\\'
+with open('G:\\qujianpan\\9-5.txt', 'w', encoding='utf-8') as w:
     for item in os.listdir(path):
         file_name = item.strip()
         names = file_name.split('.')
         pins = names[0]
         with open(path + file_name, 'rb') as f:
-            base64_data = base64.b64encode(f.read())
-            res = get_key_character(base64_data)
-            resp = json.loads(res)
-            dataBaidu = resp['words_result'][0]['words']
-            resLocal = word_check_file(file_name, path + file_name)
-            respLocal = json.loads(resLocal)
-            dataLocal = respLocal['data']
-            firstThreeLocal = dataLocal.split(' ')[:3]
-            if dataBaidu[:3] != dataLocal[:3]:
-                conditionRes = dataBaidu.split(dataLocal[:2])
-                if conditionRes[0]:
-                    if dataBaidu[:2] == dataLocal[:2]:
-                        headOne = dataLocal[:2] + conditionRes[0]
+            try:
+                base64_data = base64.b64encode(f.read())
+                res = get_key_character(base64_data)
+                resp = json.loads(res)
+                dataBaidu = resp['words_result'][0]['words']
+                resLocal = word_check_file(file_name, path + file_name)
+                respLocal = json.loads(resLocal)
+                dataLocal = respLocal['data']
+                firstThreeLocal = dataLocal.split(' ')[:3]
+                if dataBaidu[:5] != dataLocal[:5]:
+                    conditionRes = dataBaidu.split(dataLocal[:3])
+                    if conditionRes[0]:
+                        if dataBaidu[:3] == dataLocal[:3]:
+                            headOne = dataLocal[:3] + conditionRes[0]
+                        else:
+                            headOne = conditionRes[0]
                     else:
-                        headOne = conditionRes[0]
+                        if dataBaidu[:3] == dataLocal[:3]:
+                            headOne = dataLocal[:3] + conditionRes[1]
+                        else:
+                            headOne = conditionRes[1]
+                    secondOne = firstThreeLocal[0]
+                    thirdOne = firstThreeLocal[1]
                 else:
-                    if dataBaidu[:2] == dataLocal[:2]:
-                        headOne = dataLocal[:2] + conditionRes[1]
-                    else:
-                        headOne = conditionRes[1]
-                secondOne = firstThreeLocal[0]
-                thirdOne = firstThreeLocal[1]
-            else:
-                headOne = firstThreeLocal[0]
-                secondOne = firstThreeLocal[1]
-                thirdOne = firstThreeLocal[2]
-            print(headOne)
+                    headOne = firstThreeLocal[0]
+                    secondOne = firstThreeLocal[1]
+                    thirdOne = firstThreeLocal[2]
+                headOne = headOne[:5]
+                print(headOne)
+            except:
+                headOne = 'err'
+                secondOne = 'err'
+                thirdOne = 'err'
             each = pins + '\t' + headOne + ' ' + secondOne + ' ' + thirdOne
             w.write(each)
             w.write('\n')

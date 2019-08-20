@@ -9,13 +9,13 @@
 @desc:
 """
 each_dict = {}
-with open('G:\\qujianpan\\26-5.txt', 'r', encoding='utf-8') as r:
+with open('G:\\qujianpan\\9-5.txt', 'r', encoding='utf-8') as r:
     for item in r:
         items = item.strip().split('\t')
         each_dict[items[0]] = items[1]
 
-with open('G:\\qujianpan\\req\\five_26.txt', 'r', encoding='utf-8') as f:
-    with open('G:\\qujianpan\\res\\26-5.txt', 'w', encoding='utf-8') as w:
+with open('G:\\qujianpan\\req\\five_9.txt', 'r', encoding='utf-8') as f:
+    with open('G:\\qujianpan\\res\\9-5.txt', 'w', encoding='utf-8') as w:
         for item in f:
             item = item.strip()
             value = each_dict[item]

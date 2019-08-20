@@ -62,8 +62,8 @@ def word_check_file(filename, filepath):
     return str(r.content, encoding='utf-8')
 
 
-path = 'G:\\qujianpan\\26-5\\'
-with open('G:\\qujianpan\\26-5.txt', 'w', encoding='utf-8') as w:
+path = 'G:\\qujianpan\\9-4\\'
+with open('G:\\qujianpan\\9-4.txt', 'w', encoding='utf-8') as w:
     for item in os.listdir(path):
         file_name = item.strip()
         names = file_name.split('.')
@@ -79,7 +79,7 @@ with open('G:\\qujianpan\\26-5.txt', 'w', encoding='utf-8') as w:
                 dataLocal = respLocal['data']
                 firstThreeLocal = dataLocal.split(' ')[:3]
                 # 根据所需字长匹配，不匹配即需使用百度结果做首元素
-                if dataBaidu[:5] != dataLocal[:5]:
+                if dataBaidu[:4] != dataLocal[:4]:
                     # 首元素获取，注意分隔 5-4-3 按照三字分隔，2按照一字分隔
                     conditionRes = dataBaidu.split(dataLocal[:3])
                     if conditionRes[0]:
@@ -100,7 +100,7 @@ with open('G:\\qujianpan\\26-5.txt', 'w', encoding='utf-8') as w:
                     secondOne = firstThreeLocal[1]
                     thirdOne = firstThreeLocal[2]
                 # 根据所需字长截取
-                headOne = headOne[:5]
+                headOne = headOne[:4]
                 print(headOne)
             except:
                 headOne = 'err'
